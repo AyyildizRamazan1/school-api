@@ -28,13 +28,18 @@ public class UserController {
         return ResponseEntity.ok(userService.getAll(PageRequest.of(page,pageSize, Sort.by("id"))));
     }
 
+    @PostMapping("/potential-students")
+    ResponseEntity<List<User>> getPotentialStudents(@RequestBody List<Integer> studentIds){
+        return ResponseEntity.ok(userService.getPotentialUsers(studentIds));
+    }
+
     @GetMapping("/by-role")
-    ResponseEntity<List<User>> getUsersByRole(@RequestParam Role role) {
+    public ResponseEntity<List<User>> getUsersByRole(@RequestParam Role role) {
         return ResponseEntity.ok(userService.getUsersByRole(role));
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<User> getUser(@PathVariable Integer id){
+    ResponseEntity<User> getUserById(@PathVariable Integer id){
         return ResponseEntity.ok(userService.getById(id));
     }
 
@@ -43,7 +48,7 @@ public class UserController {
         return ResponseEntity.ok(userService.save(user));
     }
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteUser(@PathVariable Integer id){
+    ResponseEntity<Void> getdeleteUserById(@PathVariable Integer id){
         userService.delete(id);
         return ResponseEntity.ok().build();
     }

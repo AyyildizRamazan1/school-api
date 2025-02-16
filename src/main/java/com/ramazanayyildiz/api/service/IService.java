@@ -17,5 +17,4 @@ public interface IService<T> {
 
     void delete(Integer id);
 
-
 }

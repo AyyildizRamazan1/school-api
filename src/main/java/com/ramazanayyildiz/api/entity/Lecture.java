@@ -21,11 +21,14 @@ public class Lecture {
     @Column(name = "id")
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     public Integer getTeacherId() {
-        return teacher.getId();
+        if (teacher != null) {
+            return teacher.getId();
+        }
+        return null;
     }
 
     @ManyToOne
@@ -33,7 +36,8 @@ public class Lecture {
     private User teacher;
 
     @ManyToMany
-    @JoinTable(name = "user_lectures", joinColumns = {@JoinColumn(name = "lecture_id", referencedColumnName = "id")},
+    @JoinTable(name = "user_lectures",
+            joinColumns = {@JoinColumn(name = "lecture_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
     private List<User> students;
 }

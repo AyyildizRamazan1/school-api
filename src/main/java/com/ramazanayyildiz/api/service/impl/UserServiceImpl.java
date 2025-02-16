@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 
     private IUserRepository userRepository;
 
-    public UserService(IUserRepository userRepository) {
+    public UserServiceImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -49,11 +49,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getById(Integer id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) {
-            throw new GeneralException("User not found!");
-        }
-        return user.get();
+        return userRepository.findById(id).orElseThrow(() -> new GeneralException("User not found!"));
     }
 
     @Override
@@ -68,7 +64,7 @@ public class UserService implements IUserService {
 
     @Override
     public void delete(Integer id) {
-        if(!userRepository.existsById(id)) {
+        if (!userRepository.existsById(id)) {
             throw new GeneralException("User not found!");
         }
         userRepository.deleteById(id);
