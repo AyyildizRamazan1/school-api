@@ -34,6 +34,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "urole")
     private Role role;
 
